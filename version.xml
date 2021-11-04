@@ -3,7 +3,7 @@
 
 <!--
 /*
- * @file plugins/generic/catalogSearchPage/version.xml
+ * @file plugins/generic/seriesIndexhPage/version.xml
  *
  * Copyright (c) 2021 Language Science Press
  * Developed by Ronald Steffen
@@ -13,11 +13,11 @@
 -->
 
 <version>
-	<application>catalogSearchPage</application>
+	<application>seriesIndexPage</application>
 	<type>plugins.generic</type>
 	<release>1.0.0.0</release>
-	<date>2021-11-01</date>
+	<date>2021-11-04</date>
 	<lazy-load>1</lazy-load>
 	<sitewide>0</sitewide>
-	<class>catalogSearchPagePlugin</class>
+	<class>SeriesIndexPagePlugin</class>
 </version>
