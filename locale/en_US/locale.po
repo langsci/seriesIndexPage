@@ -26,8 +26,8 @@ msgstr "No series published"
 msgid "plugins.generic.seriesIndexPage.browseSeries"
 msgstr "{$numSeries} series published"
 
-msgid "plugins.generic.seriesIndexPage.seriesLabelBook"
-msgstr "(1 book)"
-
 msgid "plugins.generic.seriesIndexPage.seriesLabelBooks"
 msgstr "({$nBooks} books)"
+
+msgid "plugins.generic.seriesIndexPage.seriesLabelBooksForthcoming"
+msgstr "({$nBooks} book{$suffix}, {$nForthcoming} forthcoming)"

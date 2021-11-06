@@ -57,9 +57,19 @@ class seriesIndexPageHandler extends PKPCatalogHandler
 			);
             $submissionsIterator = Services::get('submission')->getMany($params);
 
+			// remove superseded (title prefixed with "Superseded")
+			$submissions = array_filter(iterator_to_array($submissionsIterator), function($k) {
+				return strpos($k->getCurrentPublication()->getLocalizedFullTitle(), "Superseded") !== 0;
+			});
+
+			$forthcoming = array_filter($submissions, function($k) {
+				return strpos($k->getCurrentPublication()->getLocalizedFullTitle(), "Forthcoming") === 0;
+			});
+
 			$data[$series->getLocalizedTitle()] = [
 				'series' => $series,
-				'submissions' => iterator_to_array($submissionsIterator)
+				'submissions' => $submissions,
+				'forthcoming' => count($forthcoming)
 			];
         }
 
@@ -70,7 +80,10 @@ class seriesIndexPageHandler extends PKPCatalogHandler
 		$this->_setupPaginationTemplate($request, count($data), $page, $count, $offset, $total);
 
 		ksort($data);
-		$data = array_slice($data, $offset, $count);
+		usort($data, function($k) {
+			return count($k['submissions']);
+		});
+		$data = array_slice(array_reverse($data), $offset, $count);
 
 		$templateMgr->assign(array(
 			'contextId' => $context->getId(),
@@ -78,7 +91,7 @@ class seriesIndexPageHandler extends PKPCatalogHandler
 			'baseurl' => $request->getBaseUrl()
 		));
 
-        $templateMgr->display('seriesIndex.tpl');
+		$templateMgr->display('seriesIndex.tpl');
     }
 }
 ?>

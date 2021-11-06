@@ -40,25 +40,20 @@
 		<div class="cmp_monographs_list">
 			{foreach from=$data item=item}
 				<div class="series_overview_row">
-					<div class=series_overview_text>
-						<a href="{url page="catalog" op="series" path={$item['series']->getPath()|escape}}">{$item['series']->getLocalizedTitle()|escape}</a>
-					</div>
-					<div class=series_overview_text>
-						{if $item['submissions']|count-$item['forthcoming'] > 1}
-							{assign var=pluralSuffix value='s'}
-						{else}
-							{assign var=pluralSuffix value=''}
-						{/if}
-						{if $item['forthcoming'] > 0}
-							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooksForthcoming"|escape suffix=$pluralSuffix nBooks=$item['submissions']|count-$item['forthcoming'] nForthcoming=$item['forthcoming']}
-						{else}
-							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooks"|escape suffix=$pluralSuffix nBooks=$item['submissions']|count}
-						{/if}
-					</div>
 					{foreach from=$item['submissions'] item=submission name=submissions}
 						<a href="{url page="catalog" op="book" path={$submission->getId()}}">
 							<img class=series_overview_icon src={$submission->getCurrentPublication()->getLocalizedCoverImageUrl($contextId)} alt="image missing"></a>
 					{/foreach}
+					<div class=series_overview_text>
+						{if $item['submissions']|count == 1}
+							{translate key="plugins.generic.seriesIndexPage.seriesLabelBook"|escape}
+						{else}
+							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooks"|escape nBooks=$item['submissions']|count}
+						{/if}
+					</div>
+					<div class=series_overview_text>
+						<a href="{url page="catalog" op="series" path={$item['series']->getPath()|escape}}">{$item['series']->getLocalizedTitle()|escape}</a>
+					</div>
 				</div>
 			{/foreach}
 		</div>
