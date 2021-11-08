@@ -40,7 +40,7 @@
 		<div class="cmp_monographs_list">
 			{foreach from=$data item=item}
 				<div class="series_overview_row">
-					<div class=series_overview_text>
+					<div class=series_overview_series_title>
 						<a href="{url page="catalog" op="series" path={$item['series']->getPath()|escape}}">{$item['series']->getLocalizedTitle()|escape}</a>
 					</div>
 					<div class=series_overview_text>
@@ -55,6 +55,8 @@
 							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooks"|escape suffix=$pluralSuffix nBooks=$item['submissions']|count}
 						{/if}
 					</div>
+				</div>
+				<div class="series_overview_icon_row"
 					{foreach from=$item['submissions'] item=submission name=submissions}
 						<a href="{url page="catalog" op="book" path={$submission->getId()}}">
 							<img class=series_overview_icon src={$submission->getCurrentPublication()->getLocalizedCoverImageUrl($contextId)} alt="image missing"></a>
