@@ -66,7 +66,7 @@ class seriesIndexPageHandler extends PKPCatalogHandler
 				return strpos($k->getCurrentPublication()->getLocalizedFullTitle(), "Forthcoming") === 0;
 			});
 
-			$data[$series->getLocalizedTitle()] = [
+			$data[count($submissions).$series->getLocalizedTitle()] = [
 				'series' => $series,
 				'submissions' => $submissions,
 				'forthcoming' => count($forthcoming)
@@ -79,10 +79,8 @@ class seriesIndexPageHandler extends PKPCatalogHandler
 
 		$this->_setupPaginationTemplate($request, count($data), $page, $count, $offset, $total);
 
-		ksort($data);
-		usort($data, function($k) {
-			return count($k['submissions']);
-		});
+		ksort($data, SORT_NUMERIC);
+
 		$data = array_slice(array_reverse($data), $offset, $count);
 
 		$templateMgr->assign(array(

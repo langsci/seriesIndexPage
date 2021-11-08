@@ -56,7 +56,7 @@
 						{/if}
 					</div>
 				</div>
-				<div class="series_overview_icon_row"
+				<div class="series_overview_icon_row">
 					{foreach from=$item['submissions'] item=submission name=submissions}
 						<a href="{url page="catalog" op="book" path={$submission->getId()}}">
 							<img class=series_overview_icon src={$submission->getCurrentPublication()->getLocalizedCoverImageUrl($contextId)} alt="image missing"></a>
