@@ -1,6 +1,7 @@
 .series_overview_row {
     display: flex;
     align-items: center;
+    margin-top: 15px;
 }
 
 .series_overview_icon {
