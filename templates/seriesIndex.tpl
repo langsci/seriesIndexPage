@@ -38,7 +38,7 @@
 	{else}
 	
 		<div class="cmp_monographs_list">
-			{foreach from=$data item=item}
+			{foreach from=$data item=item name=series_loop}
 				<div class="series_overview_row">
 					<div class=series_overview_series_title>
 						<a href="{url page="catalog" op="series" path={$item['series']->getPath()|escape}}">{$item['series']->getLocalizedTitle()|escape}</a>
@@ -56,10 +56,28 @@
 						{/if}
 					</div>
 				</div>
-				<div class="series_overview_icon_row">
-					{foreach from=$item['submissions'] item=submission name=submissions}
-						<a href="{url page="catalog" op="book" path={$submission->getId()}}">
-							<img class=series_overview_icon src={$submission->getCurrentPublication()->getLocalizedCoverImageUrl($contextId)} alt="image missing"></a>
+				<div id="series_overview_icon_row" class="series_overview_icon_row">
+					<script>
+						function scaleImg(img,flag) {
+							if (flag) {
+								var scaledImg = document.createElement("img");
+								scaledImg.id = "scaled";
+								scaledImg.src = img.src;
+								scaledImg.className = "series_overview_icon series_overview_icon_scaled";
+								scaledImg.alt = "scaled image";
+
+								var id = $('body').find('#' + img.parentElement.id);
+								$(scaledImg).insertAfter(id);
+							} else {
+								$('#scaled').remove();
+							}
+						}
+					</script>	
+					{foreach from=$item['submissions'] item=submission name=submissions_loop}
+						{assign var=icon_id value="{$smarty.foreach.series_loop.iteration}-{$smarty.foreach.submissions_loop.iteration}"}
+						{assign var="coverImage" value=$submission->getLocalizedData('coverImage')}
+						<a id="{$icon_id}" href="{url page="catalog" op="book" path={$submission->getId()}}">
+							<img class=series_overview_icon src={$submission->getCurrentPublication()->getLocalizedCoverImageUrl($contextId)} alt="{$coverImage.altText|escape|default:''}" onmouseover="scaleImg(this,true)" onmouseout="scaleImg(this,false)" ></a>
 					{/foreach}
 				</div>
 			{/foreach}
