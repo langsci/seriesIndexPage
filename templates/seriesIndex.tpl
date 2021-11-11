@@ -77,7 +77,7 @@
 						{assign var=icon_id value="{$smarty.foreach.series_loop.iteration}-{$smarty.foreach.submissions_loop.iteration}"}
 						{assign var="coverImage" value=$submission->getLocalizedData('coverImage')}
 						<a id="{$icon_id}" href="{url page="catalog" op="book" path={$submission->getId()}}">
-							<img class=series_overview_icon src={$submission->getCurrentPublication()->getLocalizedCoverImageUrl($contextId)} alt="{$coverImage.altText|escape|default:''}" onmouseover="scaleImg(this,true)" onmouseout="scaleImg(this,false)" ></a>
+							<img class=series_overview_icon src={$submission->getCurrentPublication()->getLocalizedCoverImageUrl($contextId)} alt="{$coverImage.altText|escape|default:'No alt text provided for this book cover.'}" onmouseover="scaleImg(this,true)" onmouseout="scaleImg(this,false)" ></a>
 					{/foreach}
 				</div>
 			{/foreach}
