@@ -59,17 +59,19 @@
 				<div id="series_overview_icon_row" class="series_overview_icon_row">
 					<script>
 						function scaleImg(img,flag) {
-							if (flag) {
-								var scaledImg = document.createElement("img");
-								scaledImg.id = "scaled";
-								scaledImg.src = img.src;
-								scaledImg.className = "series_overview_icon series_overview_icon_scaled";
-								scaledImg.alt = "scaled image";
+							if (window.matchMedia("(hover)").matches) {
+								if (flag) {
+									var scaledImg = document.createElement("img");
+									scaledImg.id = "scaled";
+									scaledImg.src = img.src;
+									scaledImg.className = "series_overview_icon series_overview_icon_scaled";
+									scaledImg.alt = "scaled image";
 
-								var id = $('body').find('#' + img.parentElement.id);
-								$(scaledImg).insertAfter(id);
-							} else {
-								$('#scaled').remove();
+									var id = $('body').find('#' + img.parentElement.id);
+									$(scaledImg).insertAfter(id);
+								} else {
+									$('#scaled').remove();
+								}
 							}
 						}
 					</script>	
