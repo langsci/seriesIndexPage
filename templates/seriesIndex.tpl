@@ -50,7 +50,7 @@
 							{assign var=pluralSuffix value=''}
 						{/if}
 						{if $item['countForthcoming'] > 0}
-							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooksForthcoming"|escape suffix=$pluralSuffix nBooks=$item['submissions']|count-$item['countForthcoming'] nForthcoming=$item['conutForthcoming']}
+							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooksForthcoming"|escape suffix=$pluralSuffix nBooks=$item['submissions']|count-$item['countForthcoming'] nForthcoming=$item['countForthcoming']}
 						{else}
 							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooks"|escape suffix=$pluralSuffix nBooks=$item['submissions']|count}
 						{/if}
