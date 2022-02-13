@@ -59,17 +59,25 @@ class seriesIndexPageHandler extends PKPCatalogHandler
 
 			// remove superseded (title prefixed with "Superseded")
 			$submissions = array_filter(iterator_to_array($submissionsIterator), function($k) {
-				return strpos($k->getCurrentPublication()->getLocalizedFullTitle(), "Superseded") !== 0;
+				if ($k->getCurrentPublication()->getData('pubState')) {
+					return $k->getCurrentPublication()->getData('pubState') != PUB_STATE_SUPERSEDED;	
+				} else {
+					return strpos($k->getCurrentPublication()->getLocalizedFullTitle(), "Superseded") !== 0;
+				}
 			});
 
 			$forthcoming = array_filter($submissions, function($k) {
-				return strpos($k->getCurrentPublication()->getLocalizedFullTitle(), "Forthcoming") === 0;
+				if ($k->getCurrentPublication()->getData('pubState')) {
+					return $k->getCurrentPublication()->getData('pubState') == PUB_STATE_FORTHCOMING;
+				} else {
+					return strpos($k->getCurrentPublication()->getLocalizedFullTitle(), "Forthcoming") === 0;
+				}
 			});
 
 			$data[count($submissions).$series->getLocalizedTitle()] = [
 				'series' => $series,
 				'submissions' => $submissions,
-				'forthcoming' => count($forthcoming)
+				'countForthcoming' => count($forthcoming)
 			];
         }
 

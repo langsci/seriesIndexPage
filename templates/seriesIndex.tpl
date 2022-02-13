@@ -44,13 +44,13 @@
 						<a href="{url page="catalog" op="series" path={$item['series']->getPath()|escape}}">{$item['series']->getLocalizedTitle()|escape}</a>
 					</div>
 					<div class=series_overview_text>
-						{if $item['submissions']|count-$item['forthcoming'] > 1}
+						{if $item['submissions']|count-$item['countForthcoming'] > 1}
 							{assign var=pluralSuffix value='s'}
 						{else}
 							{assign var=pluralSuffix value=''}
 						{/if}
-						{if $item['forthcoming'] > 0}
-							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooksForthcoming"|escape suffix=$pluralSuffix nBooks=$item['submissions']|count-$item['forthcoming'] nForthcoming=$item['forthcoming']}
+						{if $item['countForthcoming'] > 0}
+							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooksForthcoming"|escape suffix=$pluralSuffix nBooks=$item['submissions']|count-$item['countForthcoming'] nForthcoming=$item['conutForthcoming']}
 						{else}
 							{translate key="plugins.generic.seriesIndexPage.seriesLabelBooks"|escape suffix=$pluralSuffix nBooks=$item['submissions']|count}
 						{/if}
@@ -79,7 +79,7 @@
 						{assign var=icon_id value="{$smarty.foreach.series_loop.iteration}-{$smarty.foreach.submissions_loop.iteration}"}
 						{assign var="coverImage" value=$submission->getLocalizedData('coverImage')}
 						<a id="{$icon_id}" href="{url page="catalog" op="book" path={$submission->getId()}}">
-							<img class=series_overview_icon src={$submission->getCurrentPublication()->getLocalizedCoverImageUrl($contextId)} alt="{$coverImage.altText|escape|default:'No alt text provided for this book cover.'}" onmouseover="scaleImg(this,true)" onmouseout="scaleImg(this,false)" ></a>
+							<img class=series_overview_icon loading="lazy" src={$submission->getCurrentPublication()->getLocalizedCoverImageUrl($contextId)} alt="{$coverImage.altText|escape|default:'No alt text provided for this book cover.'}" onmouseover="scaleImg(this,true)" onmouseout="scaleImg(this,false)" ></a>
 					{/foreach}
 				</div>
 			{/foreach}
